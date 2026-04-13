@@ -1,0 +1,56 @@
+:host {
+  --color-bg: #f8fafc;
+  --color-bg-soft: #f1f5f9;
+  --color-surface: #ffffff;
+  --color-surface-2: #e2e8f0;
+
+  --color-text: #0f172a;
+  --color-text-soft: #475569;
+  --color-text-muted: #64748b;
+
+  --color-border: #dbe3ee;
+  --color-border-strong: #cbd5e1;
+
+  --color-primary: #2563eb;
+  --color-primary-hover: #1d4ed8;
+  --color-primary-soft: #dbeafe;
+
+  --color-accent: #0f766e;
+  --color-accent-soft: #ccfbf1;
+
+  --color-navbar-footer: #e4e9f0;
+}
+
+.navbar {
+  background: var(--color-navbar-footer) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--color-border);
+  padding: 0.9rem 1.25rem;
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.navbar .container-fluid {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.navbar-brand {
+  color: var(--color-text) !important;
+  font-weight: 600;
+  font-size: 1.05rem;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+.navbar-brand:hover {
+  color: var(--color-primary) !important;
+}
+
+.navbar-brand:focus-visible {
+  outline: 3px solid var(--color-primary-soft);
+  outline-offset: 4px;
+  border-radius: 0.5rem;
+}

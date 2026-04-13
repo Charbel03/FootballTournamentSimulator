@@ -1,0 +1,26 @@
+:host {
+  --color-bg: #f8fafc;
+  --color-bg-soft: #f1f5f9;
+  --color-surface: #ffffff;
+  --color-surface-2: #e2e8f0;
+
+  --color-text: #0f172a;
+  --color-text-soft: #475569;
+  --color-text-muted: #64748b;
+
+  --color-border: #dbe3ee;
+  --color-border-strong: #cbd5e1;
+
+  --color-primary: #2563eb;
+  --color-primary-hover: #1d4ed8;
+  --color-primary-soft: #dbeafe;
+
+  --color-accent: #0f766e;
+  --color-accent-soft: #ccfbf1;
+
+  --color-navbar-footer: #e4e9f0;
+}
+
+.footer{
+    background: var(--color-navbar-footer) !important;
+}
