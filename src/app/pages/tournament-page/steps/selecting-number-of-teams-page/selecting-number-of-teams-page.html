@@ -1,0 +1,21 @@
+<section class="team-count-page">
+  <div class="team-count-container">
+    <header class="team-count-header">
+      <h1>Select Number of Teams</h1>
+      <p>Choose how many teams should participate in the tournament</p>
+    </header>
+
+    <div class="team-count-grid">
+      <button
+        type="button"
+        class="team-count-card"
+        *ngFor="let option of teamOptions"
+        (click)="selectTeamCount(option.value)"
+      >
+        <span class="team-count-label">{{ option.label }}</span>
+      </button>
+    </div>
+
+    <button class="back-button" (click)="back()">Go back</button>
+  </div>
+</section>

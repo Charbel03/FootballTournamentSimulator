@@ -1,0 +1,138 @@
+<section class="group-stage-page">
+  <div class="group-stage-container">
+    <header class="group-stage-header">
+      <h1>Group Stage</h1>
+    </header>
+
+    <div class="group-tabs">
+      @for (group of groups(); track group.name; let groupIndex = $index) {
+        <button
+          type="button"
+          class="group-tab"
+          [class.active]="activeGroupIndex() === groupIndex"
+          (click)="selectGroup(groupIndex)"
+        >
+          {{ group.name }}
+        </button>
+      }
+    </div>
+
+    @if (activeGroup()) {
+      <section class="standings-card">
+        <div class="standings-table-wrapper">
+          <table class="standings-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Team</th>
+                <th>P</th>
+                <th>W</th>
+                <th>D</th>
+                <th>L</th>
+                <th>Pts</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              @for (row of activeGroupStandings(); track row.team.name) {
+                <tr>
+                  <td>
+                    <span class="position-badge">{{ row.position }}</span>
+                  </td>
+                  <td class="team-cell">
+                    <div class="team-cell-content">
+                        <img
+                        class="team-logo"
+                        [src]="row.team.logo"
+                        [alt]="row.team.name"
+                        />
+                        <span>{{ row.team.name }}</span>
+                    </div>
+                    </td>
+                  <td>{{ row.played }}</td>
+                  <td>{{ row.wins }}</td>
+                  <td>{{ row.draws }}</td>
+                  <td>{{ row.losses }}</td>
+                  <td class="points-cell">{{ row.points }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="fixtures-section">
+        <h2>Fixtures</h2>
+
+        <div class="fixtures-grid">
+          @for (match of activeGroupMatches(); track match.id) {
+            <article class="fixture-card">
+              <div class="fixture-teams">
+                <div class="fixture-team">
+                  <img
+                    class="fixture-logo"
+                    [src]="match.homeTeam.logo"
+                    [alt]="match.homeTeam.name"
+                  />
+                  <span>{{ match.homeTeam.name }}</span>
+                </div>
+
+                <div class="fixture-versus">VS</div>
+
+                <div class="fixture-team fixture-team-right">
+                  <img
+                    class="fixture-logo"
+                    [src]="match.awayTeam.logo"
+                    [alt]="match.awayTeam.name"
+                  />
+                  <span>{{ match.awayTeam.name }}</span>
+                </div>
+              </div>
+
+              <div class="fixture-actions">
+                <button
+                  type="button"
+                  class="result-button"
+                  [class.selected]="isSelectedResult(match, 'home')"
+                  (click)="setMatchResult(activeGroup()!.name, match.id, 'home')"
+                >
+                  {{ match.homeTeam.name }}
+                </button>
+
+                <button
+                  type="button"
+                  class="result-button"
+                  [class.selected]="isSelectedResult(match, 'draw')"
+                  (click)="setMatchResult(activeGroup()!.name, match.id, 'draw')"
+                >
+                  Draw
+                </button>
+
+                <button
+                  type="button"
+                  class="result-button"
+                  [class.selected]="isSelectedResult(match, 'away')"
+                  (click)="setMatchResult(activeGroup()!.name, match.id, 'away')"
+                >
+                  {{ match.awayTeam.name }}
+                </button>
+              </div>
+            </article>
+          }
+        </div>
+      </section>
+
+      <div class="page-actions">
+        <button class="back-buttom" (click)="back()"> Go Back</button>
+        <button
+          type="button"
+          class="continue-button"
+          [disabled]="!canContinue()"
+          (click)="onContinue()"
+        >
+          Continue
+        </button>
+      </div>
+    }
+  </div>
+</section>

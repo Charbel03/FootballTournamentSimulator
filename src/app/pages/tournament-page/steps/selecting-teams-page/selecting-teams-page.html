@@ -1,0 +1,108 @@
+<section class="select-teams-page">
+  <div class="select-teams-container">
+    <header class="select-teams-header">
+      <h1>Select and Place the Teams in Groups</h1>
+      <button type="button" class="auto-draw-button" (click)="autoDraw()">
+        Auto Draw
+      </button>
+    </header>
+
+    <div class="groups-grid">
+      @for (group of groups(); track group.name; let groupIndex = $index) {
+        <article class="group-card">
+          <h2>{{ group.name }}</h2>
+
+          <div class="group-slots">
+            @for (selectedTeam of group.teams; track $index; let slotIndex = $index) {
+              <div class="team-slot">
+                <div class="team-field-row">
+                  <div
+                    class="team-select-wrapper"
+                    [class.open]="isDropdownOpen(groupIndex, slotIndex)"
+                    (click)="$event.stopPropagation()"
+                  >
+                    <button
+                      type="button"
+                      class="team-select-trigger"
+                      (click)="toggleDropdown(groupIndex, slotIndex)"
+                    >
+                      <span class="team-select-value">
+                        @if (selectedTeam) {
+                          <span class="team-select-value-content">
+                            <img
+                              class="team-logo"
+                              [src]="selectedTeam.logo"
+                              [alt]="selectedTeam.name"
+                            />
+                            <span class="team-name-text">{{ selectedTeam.name }}</span>
+                          </span>
+                        } @else {
+                          <span class="team-placeholder">Select Team</span>
+                        }
+                      </span>
+
+                      <span class="team-select-chevron" aria-hidden="true">⌄</span>
+                    </button>
+
+                    @if (isDropdownOpen(groupIndex, slotIndex)) {
+                      <div class="team-dropdown">
+                        <div class="team-search-wrapper">
+                          <input
+                            type="text"
+                            class="team-search-input"
+                            placeholder="Search team..."
+                            [value]="getSearchTerm(groupIndex, slotIndex)"
+                            (input)="setSearchTerm(groupIndex, slotIndex, $any($event.target).value)"
+                            (click)="$event.stopPropagation()"
+                          />
+                        </div>
+
+                        <div class="team-options">
+                          @if (getFilteredTeamsForSlot(groupIndex, slotIndex, selectedTeam).length) {
+                            @for (
+                              team of getFilteredTeamsForSlot(groupIndex, slotIndex, selectedTeam);
+                              track team.name
+                            ) {
+                              <button
+                                type="button"
+                                class="team-option"
+                                (click)="selectTeam(groupIndex, slotIndex, team)"
+                              >
+                                <img
+                                  class="team-logo"
+                                  [src]="team.logo"
+                                  [alt]="team.name"
+                                />
+                                <span>{{ team.name }}</span>
+                              </button>
+                            }
+                          } @else {
+                            <div class="team-option-empty">
+                              No teams found
+                            </div>
+                          }
+                        </div>
+                      </div>
+                    }
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+        </article>
+      }
+    </div>
+
+    <div class="page-actions">
+      <button class="back-buttom" (click)="back()">Go Back</button>
+      <button
+        type="button"
+        class="continue-button"
+        [disabled]="!isReadyToContinue()"
+        (click)="onContinue()"
+      >
+        Continue
+      </button>
+    </div>
+  </div>
+</section>

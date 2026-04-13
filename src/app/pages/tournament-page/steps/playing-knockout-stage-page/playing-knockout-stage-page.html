@@ -1,0 +1,180 @@
+<section class="knockout-page">
+  <div class="knockout-container">
+    <header class="knockout-header">
+      <h1>Knockout Stage</h1>
+      <p>Select the winner of each match to advance teams through the bracket.</p>
+    </header>
+
+    @if (unsupportedMessage()) {
+      <div class="unsupported-card">
+        <p>{{ unsupportedMessage() }}</p>
+      </div>
+    } @else {
+      <div class="bracket-shell">
+        <div class="knockout-bracket">
+          <div class="bracket-side bracket-left">
+            @for (stage of leftStages(); track trackStage($index, stage)) {
+              <section class="stage-column">
+                <h2>{{ stage.label }}</h2>
+
+                <div class="stage-track" [style.--rows]="leftRows()">
+                  @for (match of stage.matches; track trackMatch($index, match); let matchIndex = $index) {
+                    <article
+                      class="match-card"
+                      [style.grid-row]="getGridRow(stage.matches.length, matchIndex, leftBaseMatches())"
+                    >
+                      <button
+                        type="button"
+                        class="team-button"
+                        [class.selected]="isWinner(match, match.homeTeam)"
+                        [disabled]="!match.homeTeam"
+                        (click)="selectWinner(match.id, match.homeTeam)"
+                      >
+                        @if (match.homeTeam) {
+                          <img class="team-logo" [src]="match.homeTeam.logo" [alt]="match.homeTeam.name" />
+                          <span>{{ match.homeTeam.name }}</span>
+                        } @else {
+                          <span>TBD</span>
+                        }
+                      </button>
+
+                      <button
+                        type="button"
+                        class="team-button"
+                        [class.selected]="isWinner(match, match.awayTeam)"
+                        [disabled]="!match.awayTeam"
+                        (click)="selectWinner(match.id, match.awayTeam)"
+                      >
+                        @if (match.awayTeam) {
+                          <img class="team-logo" [src]="match.awayTeam.logo" [alt]="match.awayTeam.name" />
+                          <span>{{ match.awayTeam.name }}</span>
+                        } @else {
+                          <span>TBD</span>
+                        }
+                      </button>
+                    </article>
+                  }
+                </div>
+              </section>
+            }
+          </div>
+
+          <div class="bracket-center">
+
+            <aside class="winner-column">
+              <h2>Winner</h2>
+
+              <div class="winner-card">
+                @if (champion()) {
+                  <img class="winner-logo" [src]="champion()!.logo" [alt]="champion()!.name" />
+                  <span>{{ champion()!.name }}</span>
+                } @else {
+                  <span>TBD</span>
+                }
+              </div>
+            </aside>
+
+            <section class="stage-column final-column">
+              <h2>Final</h2>
+
+              <div class="stage-track final-track" [style.--rows]="2">
+                @for (match of finalStage()?.matches ?? []; track trackMatch($index, match)) {
+                  <article class="match-card final-match-card">
+                    <button
+                      type="button"
+                      class="team-button"
+                      [class.selected]="isWinner(match, match.homeTeam)"
+                      [disabled]="!match.homeTeam"
+                      (click)="selectWinner(match.id, match.homeTeam)"
+                    >
+                      @if (match.homeTeam) {
+                        <img class="team-logo" [src]="match.homeTeam.logo" [alt]="match.homeTeam.name" />
+                        <span>{{ match.homeTeam.name }}</span>
+                      } @else {
+                        <span>TBD</span>
+                      }
+                    </button>
+
+                    <button
+                      type="button"
+                      class="team-button"
+                      [class.selected]="isWinner(match, match.awayTeam)"
+                      [disabled]="!match.awayTeam"
+                      (click)="selectWinner(match.id, match.awayTeam)"
+                    >
+                      @if (match.awayTeam) {
+                        <img class="team-logo" [src]="match.awayTeam.logo" [alt]="match.awayTeam.name" />
+                        <span>{{ match.awayTeam.name }}</span>
+                      } @else {
+                        <span>TBD</span>
+                      }
+                    </button>
+                  </article>
+                }
+              </div>
+            </section>
+          </div>
+
+          <div class="bracket-side bracket-right">
+            @for (stage of rightStages(); track trackStage($index, stage)) {
+              <section class="stage-column">
+                <h2>{{ stage.label }}</h2>
+
+                <div class="stage-track" [style.--rows]="rightRows()">
+                  @for (match of stage.matches; track trackMatch($index, match); let matchIndex = $index) {
+                    <article
+                      class="match-card"
+                      [style.grid-row]="getGridRow(stage.matches.length, matchIndex, rightBaseMatches())"
+                    >
+                      <button
+                        type="button"
+                        class="team-button"
+                        [class.selected]="isWinner(match, match.homeTeam)"
+                        [disabled]="!match.homeTeam"
+                        (click)="selectWinner(match.id, match.homeTeam)"
+                      >
+                        @if (match.homeTeam) {
+                          <img class="team-logo" [src]="match.homeTeam.logo" [alt]="match.homeTeam.name" />
+                          <span>{{ match.homeTeam.name }}</span>
+                        } @else {
+                          <span>TBD</span>
+                        }
+                      </button>
+
+                      <button
+                        type="button"
+                        class="team-button"
+                        [class.selected]="isWinner(match, match.awayTeam)"
+                        [disabled]="!match.awayTeam"
+                        (click)="selectWinner(match.id, match.awayTeam)"
+                      >
+                        @if (match.awayTeam) {
+                          <img class="team-logo" [src]="match.awayTeam.logo" [alt]="match.awayTeam.name" />
+                          <span>{{ match.awayTeam.name }}</span>
+                        } @else {
+                          <span>TBD</span>
+                        }
+                      </button>
+                    </article>
+                  }
+                </div>
+              </section>
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="page-actions">
+        <button class="back-buttom" (click)="back()">Go Back</button>
+        <button
+          type="button"
+          class="reset-button"
+          [disabled]="!canReset()"
+          (click)="onReset()"
+        >
+          Reset
+        </button>
+      </div>
+    }
+  </div>
+</section>

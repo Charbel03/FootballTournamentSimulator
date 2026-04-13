@@ -1,0 +1,74 @@
+<div class="tournament-container">
+  <div class="stepper">
+    <div class="step-item" [class.active]="currentStep() === Step.SelectingTournament">
+      <div class="step-circle">1</div>
+      <span>Select Tournament</span>
+    </div>
+
+    <div class="step-line"></div>
+
+    <div class="step-item" [class.active]="currentStep() === Step.SelectingNumberOfTeams">
+      <div class="step-circle">2</div>
+      <span>Select Number Of Teams</span>
+    </div>
+
+    <div class="step-line"></div>
+
+    <div class="step-item" [class.active]="currentStep() === Step.SelectingTeams">
+      <div class="step-circle">3</div>
+      <span>Select Teams</span>
+    </div>
+
+    <div class="step-line"></div>
+
+    <div class="step-item" [class.active]="currentStep() === Step.PlayingGroupStage">
+      <div class="step-circle">4</div>
+      <span>Group Stage</span>
+    </div>
+
+    <div class="step-line"></div>
+
+    <div class="step-item" [class.active]="currentStep() === Step.PlayingKnockoutStage">
+      <div class="step-circle">5</div>
+      <span>Knockout Stage</span>
+    </div>
+  </div>
+
+  @switch (currentStep()) {
+    @case (Step.SelectingTournament) {
+      <app-selecting-tournament-page
+      (nextStep)="goToSelectingNumberOfTeams()"
+      >
+      </app-selecting-tournament-page>
+    }
+
+    @case (Step.SelectingNumberOfTeams) {
+      <app-selecting-number-of-teams-page
+      (nextStep)="goToSelectingTeams()"
+      (goBack)="goToSelectingTournament()"
+      >
+      </app-selecting-number-of-teams-page>
+    }
+
+    @case (Step.SelectingTeams) {
+      <app-selecting-teams-page
+      (nextStep)="goToPlayingGroupStage()"
+      (goBack)="goToSelectingNumberOfTeams()"
+      ></app-selecting-teams-page>
+    }
+
+    @case (Step.PlayingGroupStage) {
+      <app-playing-group-stage-page
+      (nextStep)="goToPlayingKnockoutStage()"
+      (goBack)="goToSelectingTeams()"
+      ></app-playing-group-stage-page>
+    }
+
+    @case (Step.PlayingKnockoutStage) {
+      <app-playing-knockout-stage-page
+      (nextStep)="goToSelectingTournament()"
+      (goBack)="goToPlayingGroupStage()"
+      ></app-playing-knockout-stage-page>
+    }
+  }
+</div>

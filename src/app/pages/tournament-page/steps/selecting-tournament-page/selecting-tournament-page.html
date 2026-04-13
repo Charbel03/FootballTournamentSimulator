@@ -1,0 +1,33 @@
+<section class="tournament-page">
+  <div class="tournament-container">
+    <header class="tournament-header">
+      <h1>Select Tournament</h1>
+      <p>Choose a tournament format to get started</p>
+    </header>
+
+    <div class="tournament-grid">
+      <article
+        class="tournament-card"
+        *ngFor="let card of tournamentCards"
+        [class.inactive]="!card.active"
+        [class.active]="card.active"
+      >
+        <div class="coming-soon" *ngIf="!card.active">Coming Soon</div>
+
+        <div class="card-icon">{{ card.icon }}</div>
+
+        <h2>{{ card.title }}</h2>
+        <p>{{ card.description }}</p>
+
+        <button
+          type="button"
+          class="card-button"
+          [disabled]="!card.active"
+          (click)="selectTournament(card)"
+        >
+          {{ card.active ? 'Select' : 'Unavailable' }}
+        </button>
+      </article>
+    </div>
+  </div>
+</section>

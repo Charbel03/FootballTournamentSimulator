@@ -1,0 +1,159 @@
+:host {
+  display: block;
+}
+
+.hero-section {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem 1.5rem;
+  border-bottom: 1px solid;
+}
+
+.hero-content {
+  max-width: 900px;
+  width: 100%;
+}
+
+.hero-badge {
+  display: inline-block;
+  border: 1px solid;
+  border-radius: 999px;
+  padding: 0.5rem 1rem;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+}
+
+.hero-section h1 {
+  font-size: clamp(2.5rem, 7vw, 5.5rem);
+  line-height: 1.05;
+  margin-bottom: 1.5rem;
+}
+
+.hero-section p {
+  max-width: 760px;
+  margin: 0 auto 2rem;
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+.hero-button {
+  display: inline-block;
+  border: 1px solid;
+  border-radius: 999px;
+  padding: 0.95rem 1.6rem;
+  font-weight: 700;
+  text-decoration: none;
+  color: inherit;
+}
+
+.info-section {
+  padding: 5rem 1.5rem;
+}
+
+.info-section h2 {
+  text-align: center;
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin-bottom: 2.5rem;
+}
+
+.card-grid {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.tech-grid {
+  max-width: 1100px;
+}
+
+.info-card {
+  border: 1px solid;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  min-height: 220px;
+}
+
+.card-icon {
+  width: 52px;
+  height: 52px;
+  border: 1px solid;
+  border-radius: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  margin-bottom: 1.25rem;
+}
+
+.info-card h3 {
+  font-size: 1.4rem;
+  margin-bottom: 0.8rem;
+}
+
+.info-card p {
+  line-height: 1.6;
+}
+
+@media (max-width: 1100px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-section {
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding: 2rem 1rem;
+    text-align: left;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .hero-content {
+    max-width: 100%;
+  }
+
+  .hero-badge {
+    font-size: 0.85rem;
+    padding: 0.45rem 0.85rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .hero-section h1 {
+    font-size: clamp(2.2rem, 11vw, 3.5rem);
+    line-height: 1.05;
+    margin-bottom: 1rem;
+  }
+
+  .hero-section p {
+    max-width: 100%;
+    margin: 0 0 1.75rem 0;
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  .hero-button {
+    width: 100%;
+    text-align: center;
+    padding: 1rem 1.25rem;
+  }
+
+  .info-section {
+    padding: 4rem 1rem;
+  }
+
+  .info-section h2 {
+    text-align: left;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+}
