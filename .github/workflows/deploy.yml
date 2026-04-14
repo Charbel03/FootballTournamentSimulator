@@ -36,9 +36,7 @@ jobs:
         run: npm run build -- --base-href "/FootballTournamentSimulator/"
 
       - name: Copy index.html to 404.html
-        run: |
-          APP_DIR=$(find dist -mindepth 1 -maxdepth 1 -type d | head -n 1)
-          cp "$APP_DIR/index.html" "$APP_DIR/404.html"
+        run: cp dist/football-tournament-simulator/browser/index.html dist/football-tournament-simulator/browser/404.html
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -46,7 +44,7 @@ jobs:
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist/football-tournament-simulator
+          path: ./dist/football-tournament-simulator/browser
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
