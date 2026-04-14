@@ -59,7 +59,7 @@ The following tournament options are visible in the UI but are not yet fully ava
 ![Landing Page](./public/screenshots/landing-page.png)
 
 ### Tournament Setup
-![Tournament Setup](./public/screenshots/tournament-setup.png)
+![Tournament Setup](./public/screenshots/select-tournament-page.png)
 
 ### Group Stage
 ![Group Stage](./public/screenshots/group-stage.png)
