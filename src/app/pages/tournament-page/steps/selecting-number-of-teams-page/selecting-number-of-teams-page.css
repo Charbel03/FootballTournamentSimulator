@@ -61,24 +61,41 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
   justify-content: center;
-  max-width: 760px;
+  max-width: 900px;
   margin: 0 auto;
 }
 
 .team-count-card {
+  position: relative;
   border: 1px solid var(--color-border);
+  background: linear-gradient(180deg, #ffffff 0%, #fdfefe 100%);
   border-radius: 1.25rem;
-  min-height: 140px;
   padding: 1.5rem;
-  background: var(--color-surface);
-  font: inherit;
-  cursor: pointer;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
   text-align: center;
   box-shadow: var(--shadow-soft);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    border-color 0.22s ease,
+    background 0.22s ease;
+  overflow: hidden;
+}
+
+.team-count-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(37, 99, 235, 0.04),
+    transparent 45%
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.22s ease;
 }
 
 .team-count-card:hover {
@@ -87,21 +104,56 @@
   box-shadow: var(--shadow-hover);
 }
 
-.team-count-label {
-  font-size: 1.75rem;
-  font-weight: 700;
-  line-height: 1.2;
+.team-count-card:hover::after {
+  opacity: 1;
+}
+
+.team-count-card h2 {
+  font-size: 1.35rem;
+  margin-bottom: 0.75rem;
   color: var(--color-text);
 }
 
-.team-count-card.selected {
-  border: 2px solid var(--color-primary);
-  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
-  box-shadow: var(--shadow-primary);
+.team-count-card p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  max-width: 24ch;
+  color: var(--color-text-soft);
 }
 
-.team-count-card.selected .team-count-label {
-  color: var(--color-primary);
+.card-button {
+  margin-top: auto;
+  border: 1px solid var(--color-primary);
+  background: var(--color-primary);
+  color: #ffffff;
+  border-radius: 999px;
+  padding: 0.85rem 1.2rem;
+  min-width: 140px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+  box-shadow: var(--shadow-primary);
+  position: relative;
+  z-index: 1;
+}
+
+.card-button:hover {
+  background: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+  transform: translateY(-2px);
+}
+
+.card-button:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 4px rgba(37, 99, 235, 0.14),
+    0 14px 26px rgba(37, 99, 235, 0.24);
 }
 
 .back-button {
@@ -115,8 +167,12 @@
   font-weight: 700;
   cursor: pointer;
   min-width: 140px;
+  display: block;
   box-shadow: var(--shadow-soft);
-  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease;
 }
 
 .back-button:hover {
@@ -128,12 +184,12 @@
 @media (max-width: 900px) {
   .team-count-grid {
     grid-template-columns: repeat(2, 1fr);
-    max-width: 520px;
+    max-width: 620px;
   }
 
   .back-button {
     width: 100%;
-    max-width: 520px;
+    max-width: 620px;
   }
 }
 
@@ -153,11 +209,17 @@
   }
 
   .team-count-card {
-    min-height: 110px;
+    align-items: flex-start;
+    text-align: left;
+    min-height: unset;
   }
 
-  .team-count-label {
-    font-size: 1.4rem;
+  .team-count-card p {
+    max-width: 100%;
+  }
+
+  .card-button {
+    width: 100%;
   }
 
   .back-button {

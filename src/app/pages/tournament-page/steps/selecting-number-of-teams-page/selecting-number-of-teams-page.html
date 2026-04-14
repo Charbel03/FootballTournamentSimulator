@@ -6,16 +6,23 @@
     </header>
 
     <div class="team-count-grid">
-      <button
-        type="button"
+      <article
         class="team-count-card"
         *ngFor="let option of teamOptions"
-        (click)="selectTeamCount(option.value)"
       >
-        <span class="team-count-label">{{ option.label }}</span>
-      </button>
+        <h2>{{ option.label }}</h2>
+        <p>Select {{ option.label.toLowerCase() }} to continue setting up your tournament.</p>
+
+        <button
+          type="button"
+          class="card-button"
+          (click)="selectTeamCount(option.value)"
+        >
+          Select
+        </button>
+      </article>
     </div>
 
-    <button class="back-button" (click)="back()">Go back</button>
+    <button type="button" class="back-button" (click)="back()">Go back</button>
   </div>
 </section>
