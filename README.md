@@ -1,59 +1,68 @@
-# FootballTournamentSimulator
+# Football Tournament Simulator
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.2.
+A frontend project built with Angular where users can create and simulate a football tournament through a guided step-by-step flow.
 
-## Development server
+## Live Demo
 
-To start a local development server, run:
+[Open the deployed site](https://charbel03.github.io/FootballTournamentSimulator/)
 
-```bash
-ng serve
-```
+## About the Project
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Football Tournament Simulator is a single-page Angular application where the user can set up a tournament, choose the number of teams, assign teams into groups, and continue through the tournament flow from group stage to knockout stage.
 
-## Code scaffolding
+The project focuses on a clean user flow and reusable Angular components.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Features
 
-```bash
-ng generate component component-name
-```
+- Landing page with project presentation
+- Tournament setup flow
+- Select tournament type
+- Choose number of teams:
+  - 8 teams
+  - 16 teams
+  - 32 teams
+  - 48 teams
+- Select and place teams into groups manually
+- Auto draw teams into groups
+- Group stage view
+- Knockout stage bracket view
+- Responsive UI
+- Deployed with GitHub Pages
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Current Status
 
-```bash
-ng generate --help
-```
+At the moment, the fully active setup path is:
 
-## Building
+- **Custom Nation Teams**
 
-To build the project run:
+The following tournament options are visible in the UI but are not yet fully available:
 
-```bash
-ng build
-```
+- Custom Teams
+- Champions League
+- World Cup
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Tech Stack
 
-## Running unit tests
+- **Angular 21**
+- **TypeScript**
+- **HTML**
+- **CSS**
+- **Angular Router**
+- **RxJS**
+- **Vitest**
+- **GitHub Pages**
+- **GitHub Actions**
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+## Screenshots
 
-```bash
-ng test
-```
+### Landing Page
+![Landing Page](./public/screenshots/landing-page.png)
 
-## Running end-to-end tests
+### Tournament Setup
+![Tournament Setup](./public/screenshots/tournament-setup.png)
 
-For end-to-end (e2e) testing, run:
+### Group Stage
+![Group Stage](./public/screenshots/group-stage.png)
 
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### Knockout Stage
+![Knockout Stage](./public/screenshots/knockout-stage.png)
