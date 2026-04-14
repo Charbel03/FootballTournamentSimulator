@@ -35,7 +35,7 @@
 .select-teams-page {
   min-height: 100vh;
   min-height: 100dvh;
-  padding: 2rem 1rem 3rem;
+  padding: 1rem;
   display: flex;
   justify-content: center;
 }
@@ -338,7 +338,7 @@
 
 @media (max-width: 640px) {
   .select-teams-page {
-    padding: 2rem 1rem;
+    padding: 1rem;
   }
 
   .select-teams-header {

@@ -74,7 +74,7 @@
                     [src]="match.homeTeam.logo"
                     [alt]="match.homeTeam.name"
                   />
-                  <span>{{ match.homeTeam.name }}</span>
+                  <span [title]="match.homeTeam.name">{{ getShortTeamName(match.homeTeam.name) }}</span>
                 </div>
 
                 <div class="fixture-versus">VS</div>
@@ -85,7 +85,7 @@
                     [src]="match.awayTeam.logo"
                     [alt]="match.awayTeam.name"
                   />
-                  <span>{{ match.awayTeam.name }}</span>
+                  <span [title]="match.awayTeam.name">{{ getShortTeamName(match.awayTeam.name) }}</span>
                 </div>
               </div>
 

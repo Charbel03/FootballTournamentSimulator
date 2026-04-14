@@ -47,6 +47,10 @@ export class PlayingGroupStagePage {
     this.goBack.emit();
   }
 
+  getShortTeamName(name: string): string {
+    return name.length > 20 ? `${name.slice(0, 20)}...` : name;
+  }
+
   readonly activeGroup = computed(() => {
     const groups = this.groups();
     const index = this.activeGroupIndex();
