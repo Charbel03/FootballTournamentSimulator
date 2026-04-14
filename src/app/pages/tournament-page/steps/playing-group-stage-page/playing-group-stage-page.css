@@ -265,7 +265,7 @@
   gap: 1rem;
 }
 
-.back-buttom,
+.back-button,
 .continue-button {
   border-radius: 999px;
   padding: 0.95rem 1.5rem;
@@ -276,14 +276,14 @@
   transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
 }
 
-.back-buttom {
+.back-button {
   border: 1px solid var(--color-border-strong);
   background: var(--color-surface);
   color: var(--color-text);
   box-shadow: var(--shadow-soft);
 }
 
-.back-buttom:hover {
+.back-button:hover {
   transform: translateY(-2px);
   border-color: var(--color-primary-soft);
   background: var(--color-bg-soft);
@@ -397,7 +397,7 @@
     justify-content: stretch;
   }
 
-  .back-buttom,
+  .back-button,
   .continue-button {
     width: 100%;
   }

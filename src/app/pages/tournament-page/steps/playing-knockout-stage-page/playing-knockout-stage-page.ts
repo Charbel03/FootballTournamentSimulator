@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output, computed, effect, inject, signal } from '@angular/core';
+import { Component, EventEmitter, Output, computed, effect, inject, signal, OnDestroy } from '@angular/core';
 import { Team, TeamGroup } from '../../../../interfaces/team';
 import { TournamentService } from '../../../../services/tournament-service';
 
@@ -39,7 +39,7 @@ interface StageDefinition {
   templateUrl: './playing-knockout-stage-page.html',
   styleUrl: './playing-knockout-stage-page.css',
 })
-export class PlayingKnockoutStagePage {
+export class PlayingKnockoutStagePage implements OnDestroy {
   private readonly tournamentService = inject(TournamentService);
 
   @Output() nextStep = new EventEmitter<void>();
@@ -48,6 +48,12 @@ export class PlayingKnockoutStagePage {
   readonly knockoutGroups = computed(() => this.tournamentService.knockoutStageTeams());
   readonly stages = signal<KnockoutStageColumn[]>([]);
   readonly unsupportedMessage = signal<string | null>(null);
+
+  readonly showConfetti = signal(false);
+  readonly confettiPieces = Array.from({ length: 28 }, (_, i) => i);
+
+  private confettiTimeout: ReturnType<typeof setTimeout> | null = null;
+  private previousChampionName: string | null = null;
 
   private readonly stageLabels: Record<KnockoutStageKey, string> = {
     roundOf24: 'Round of 24',
@@ -76,14 +82,32 @@ export class PlayingKnockoutStagePage {
     effect(() => {
       this.buildBracket(this.knockoutGroups());
     });
+
+    effect(() => {
+      const champion = this.champion();
+      const championName = champion?.name ?? null;
+
+      if (championName && championName !== this.previousChampionName) {
+        this.launchConfetti();
+      }
+
+      this.previousChampionName = championName;
+    });
   }
 
-  back(){
+  ngOnDestroy(): void {
+    if (this.confettiTimeout) {
+      clearTimeout(this.confettiTimeout);
+    }
+  }
+
+  back() {
     this.goBack.emit();
   }
 
   trackStage = (_: number, stage: KnockoutStageColumn): string => stage.key;
   trackMatch = (_: number, match: KnockoutMatch): string => match.id;
+  trackConfetti = (_: number, piece: number): number => piece;
 
   selectWinner(matchId: string, team: Team | null): void {
     if (!team) {
@@ -124,6 +148,22 @@ export class PlayingKnockoutStagePage {
     const start = Math.round(matchIndex * step + step / 2);
 
     return `${start} / span 1`;
+  }
+
+  private launchConfetti(): void {
+    this.showConfetti.set(false);
+
+    if (this.confettiTimeout) {
+      clearTimeout(this.confettiTimeout);
+    }
+
+    requestAnimationFrame(() => {
+      this.showConfetti.set(true);
+
+      this.confettiTimeout = setTimeout(() => {
+        this.showConfetti.set(false);
+      }, 2600);
+    });
   }
 
   private buildBracket(groups: TeamGroup[]): void {

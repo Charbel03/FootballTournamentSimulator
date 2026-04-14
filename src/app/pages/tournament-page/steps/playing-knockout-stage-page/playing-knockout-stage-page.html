@@ -1,4 +1,12 @@
 <section class="knockout-page">
+  @if (showConfetti()) {
+    <div class="confetti-overlay" aria-hidden="true">
+      @for (piece of confettiPieces; track trackConfetti($index, piece)) {
+        <span class="confetti-piece"></span>
+      }
+    </div>
+  }
+
   <div class="knockout-container">
     <header class="knockout-header">
       <h1>Knockout Stage</h1>
@@ -64,7 +72,7 @@
             <aside class="winner-column">
               <h2>Winner</h2>
 
-              <div class="winner-card">
+              <div class="winner-card" [class.winner-card--champion]="champion()">
                 @if (champion()) {
                   <img class="winner-logo" [src]="champion()!.logo" [alt]="champion()!.name" />
                   <span>{{ champion()!.name }}</span>
@@ -165,7 +173,7 @@
       </div>
 
       <div class="page-actions">
-        <button class="back-buttom" (click)="back()">Go Back</button>
+        <button class="back-button" (click)="back()">Go Back</button>
         <button
           type="button"
           class="reset-button"
