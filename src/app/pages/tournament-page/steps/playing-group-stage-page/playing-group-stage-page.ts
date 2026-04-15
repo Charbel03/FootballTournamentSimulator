@@ -47,6 +47,30 @@ export class PlayingGroupStagePage {
     this.goBack.emit();
   }
 
+  autoSimulate(): void {
+    const currentMatches = this.groupMatches();
+    const updatedMatches: Record<string, GroupMatch[]> = {};
+
+    for (const group of this.groups()) {
+      const fixtures = currentMatches[group.name] ?? [];
+
+      updatedMatches[group.name] = fixtures.map((match) => ({
+        ...match,
+        result: this.getRandomResult(),
+      }));
+    }
+
+    this.groupMatches.set(updatedMatches);
+  }
+
+  private getRandomResult(): MatchResult {
+    const random = Math.random();
+
+    if (random < 0.4) return 'home';
+    if (random < 0.7) return 'away';
+    return 'draw';
+  }
+
   getShortTeamName(name: string): string {
     return name.length > 20 ? `${name.slice(0, 20)}...` : name;
   }

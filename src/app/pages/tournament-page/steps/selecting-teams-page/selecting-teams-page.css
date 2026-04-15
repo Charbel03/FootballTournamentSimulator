@@ -46,7 +46,8 @@
 }
 
 .select-teams-header {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
@@ -54,6 +55,7 @@
 }
 
 .select-teams-header h1 {
+  grid-column: 2;
   font-size: clamp(2rem, 4vw, 3rem);
   line-height: 1.1;
   text-align: center;
@@ -74,6 +76,7 @@
   flex-shrink: 0;
   box-shadow: var(--shadow-soft);
   transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  margin-left: auto;
 }
 
 .auto-draw-button:hover {
