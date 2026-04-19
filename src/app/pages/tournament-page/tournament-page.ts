@@ -6,6 +6,7 @@ import { PlayingGroupStagePage } from './steps/playing-group-stage-page/playing-
 import { PlayingKnockoutStagePage } from './steps/playing-knockout-stage-page/playing-knockout-stage-page';
 import { TournamentService } from '../../services/tournament-service';
 import { CountryService } from '../../services/country-service';
+import { ClubTeamService } from '../../services/club-team-service';
 import { LocalStorageService } from '../../services/local-storage-service';
 import { Team  } from '../../interfaces/team';
 
@@ -28,6 +29,7 @@ export enum Step {
 export class TournamentPage {
   private tournamentService = inject(TournamentService);
   private countryService = inject(CountryService);
+  private clubTeamService = inject(ClubTeamService);
   private localStorageService = inject(LocalStorageService);
 
   Step = Step;
@@ -53,19 +55,36 @@ export class TournamentPage {
       return;
     }
 
-    if (tournamentId === 1) {
-      this.countryService.getCountries().subscribe((countries) => {
-        const mappedTeams: Team[] = countries.map((country) => ({
-          name: country.name.common,
-          logo: country.flagSvg
-        }));
+    switch (tournamentId) {
+      case 1:
+        this.countryService.getCountries().subscribe((countries) => {
+          const mappedTeams: Team[] = countries.map((country) => ({
+            name: country.name.common,
+            logo: country.flagSvg
+          }));
 
-        this.tournamentService.setAllTeams(mappedTeams);
-        this.localStorageService.setTeams(tournamentId, mappedTeams);
-        this.currentStep.set(Step.SelectingTeams);
-      });
+          this.tournamentService.setAllTeams(mappedTeams);
+          this.localStorageService.setTeams(tournamentId, mappedTeams);
+          this.currentStep.set(Step.SelectingTeams);
+        });
+        return;
 
-      return;
+      case 2:
+        this.clubTeamService.getAllTopLeagueTeams().subscribe({
+          next: (allTeams) => {
+
+            this.tournamentService.setAllTeams(allTeams);
+            this.localStorageService.setTeams(tournamentId, allTeams);
+            this.currentStep.set(Step.SelectingTeams);
+          },
+          error: (err) => {
+            console.error('Error Fetching Club Teams', err);
+          }
+        });
+        return;
+
+      default:
+        return;
     }
   }
 

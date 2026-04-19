@@ -29,7 +29,7 @@ export class SelectingTournamentPage {
       title: 'Custom Teams',
       description: 'Build your own tournament with club teams.',
       icon: '👥',
-      active: false
+      active: true
     },
     {
       id: 3,
