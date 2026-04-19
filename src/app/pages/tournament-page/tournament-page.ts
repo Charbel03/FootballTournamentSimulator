@@ -6,6 +6,7 @@ import { PlayingGroupStagePage } from './steps/playing-group-stage-page/playing-
 import { PlayingKnockoutStagePage } from './steps/playing-knockout-stage-page/playing-knockout-stage-page';
 import { TournamentService } from '../../services/tournament-service';
 import { CountryService } from '../../services/country-service';
+import { LocalStorageService } from '../../services/local-storage-service';
 import { Team  } from '../../interfaces/team';
 
 export enum Step {
@@ -27,6 +28,7 @@ export enum Step {
 export class TournamentPage {
   private tournamentService = inject(TournamentService);
   private countryService = inject(CountryService);
+  private localStorageService = inject(LocalStorageService);
 
   Step = Step;
 
@@ -37,7 +39,21 @@ export class TournamentPage {
   }
 
   goToSelectingTeams() {
-    if (this.tournamentService.tournament().id === 1) {
+    const tournamentId = this.tournamentService.tournament().id;
+
+    if (tournamentId === null) {
+      return;
+    }
+
+    const cachedTeams = this.localStorageService.getTeams(tournamentId);
+
+    if (cachedTeams) {
+      this.tournamentService.setAllTeams(cachedTeams);
+      this.currentStep.set(Step.SelectingTeams);
+      return;
+    }
+
+    if (tournamentId === 1) {
       this.countryService.getCountries().subscribe((countries) => {
         const mappedTeams: Team[] = countries.map((country) => ({
           name: country.name.common,
@@ -45,6 +61,7 @@ export class TournamentPage {
         }));
 
         this.tournamentService.setAllTeams(mappedTeams);
+        this.localStorageService.setTeams(tournamentId, mappedTeams);
         this.currentStep.set(Step.SelectingTeams);
       });
 
