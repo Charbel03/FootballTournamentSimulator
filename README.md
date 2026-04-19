@@ -34,10 +34,10 @@ The project focuses on a clean user flow and reusable Angular components.
 At the moment, the fully active setup path is:
 
 - **Custom Nation Teams**
+- **Custom Teams**
 
 The following tournament options are visible in the UI but are not yet fully available:
 
-- Custom Teams
 - Champions League
 - World Cup
 
